@@ -1,0 +1,279 @@
+<!doctype html>
+<html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="description" content="塔罗王者赛训：建队、研究、BP、训练与复盘的可复现合成演示。"><title>塔罗王者赛训 · 五阶段 Demo</title><style>
+:root{color-scheme:light;--ink:#163239;--muted:#576c71;--paper:#f4f5ed;--line:#d8dfd4;--green:#246957;--gold:#c17b32}
+*{box-sizing:border-box}body{margin:0;background:var(--paper);color:var(--ink);font:16px/1.75 system-ui,-apple-system,"PingFang SC","Microsoft YaHei",sans-serif}
+a{color:var(--green);text-underline-offset:3px}header,main,footer{max-width:1140px;margin:auto;padding:30px 32px}header{padding-top:55px;padding-bottom:24px}
+.eyebrow{font-size:12px;letter-spacing:.16em;font-weight:750;color:var(--green)}h1{font-size:clamp(30px,5vw,55px);line-height:1.18;letter-spacing:-.04em;margin:15px 0 18px}
+.lead{max-width:780px;color:var(--muted);font-size:18px}.pill{display:inline-block;border:1px solid var(--line);background:#fff9;padding:3px 11px;border-radius:20px;font-size:12px;margin-right:7px}
+.notice{border-left:4px solid var(--gold);background:#fff7e8;padding:15px 20px;border-radius:0 10px 10px 0;font-size:14px}
+.metrics{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin:25px 0}.metric{padding:18px 20px;border:1px solid var(--line);border-radius:13px;background:#fff9}.metric b{display:block;font-size:27px;line-height:1.2}.metric span{font-size:12px;color:var(--muted)}
+.tabs{position:sticky;top:0;background:var(--paper);padding:12px 0;display:flex;gap:8px;z-index:2;border-bottom:1px solid var(--line);overflow-x:auto}
+.tabs button{font:inherit;white-space:nowrap;padding:9px 18px;border:1px solid var(--line);border-radius:9px;background:#fff;color:var(--ink);cursor:pointer}.tabs button[aria-selected=true]{background:var(--green);border-color:var(--green);color:#fff}.tabs button:focus-visible,a:focus-visible{outline:3px solid var(--gold);outline-offset:3px}
+.chapter{margin-top:20px;padding:30px 34px;background:#fff;border:1px solid var(--line);border-radius:15px}.chapter[hidden]{display:none}.chapter h2{font-size:27px;margin:0 0 18px}.chapter h3{margin-top:32px;font-size:20px}.chapter h4{font-size:17px}.chapter p,.chapter li{max-width:920px}blockquote{margin:18px 0;padding:12px 18px;background:#edf5ef;border-left:3px solid var(--green)}
+pre{padding:18px;background:#142c32;color:#e8f2e8;border-radius:9px;white-space:pre-wrap;overflow-wrap:anywhere;font-size:13px}code{font-family:ui-monospace,SFMono-Regular,Consolas,monospace;font-size:.88em}p code,li code{background:#edf1e9;padding:2px 5px;border-radius:4px}
+.table-scroll{overflow:auto;margin:18px 0}table{border-collapse:collapse;font-size:14px;width:100%;min-width:560px}th,td{text-align:left;vertical-align:top;border-bottom:1px solid var(--line);padding:11px 12px}th{background:#eef3e9;font-size:12px}.results{margin-top:24px;border:1px solid var(--line);padding:22px;border-radius:13px}.results h2{margin-top:0;font-size:20px}.downloads{display:flex;gap:15px;flex-wrap:wrap;font-size:14px}.foot{font-size:13px;color:var(--muted);border-top:1px solid var(--line)}
+@media(max-width:680px){header,main,footer{padding:22px 16px}header{padding-top:35px}.metrics{grid-template-columns:repeat(2,1fr)}.chapter{padding:22px 18px}.tabs button{padding:8px 12px}.lead{font-size:16px}}
+</style></head>
+<body><header><div class="eyebrow">TEAM COACH / OPEN SOURCE SKILL</div><h1>让每次训练，<br>都有下一步。</h1><p class="lead">从建队诊断到复盘迭代，沿着纸鸢队的五个问题，查看 AI 赛训工作流怎样把资料转成可验证的行动。</p><p><span class="pill">v2.1.0</span><span class="pill">离线可复现</span><span class="pill">Python 标准库</span></p><div class="notice"><strong>完整虚构案例。</strong>队伍、英雄池、比赛和事件均为合成材料；对话为预写模拟，工具实际执行统计与约束检查。页面没有模型调用，也不代表真实 KPL 研究或训练收益。</div><div class="metrics"><div class="metric"><b>5</b><span>个连贯阶段</span></div><div class="metric"><b>4</b><span>局合成研究记录</span></div><div class="metric"><b>2</b><span>套已检查条件方案</span></div><div class="metric"><b>90</b><span>分钟训练预算</span></div></div></header>
+<main><nav class="tabs" role="tablist" aria-label="五阶段问题链"><button id="tab-0" role="tab" aria-controls="panel-0" aria-selected="true" tabindex="0">1 · 建队诊断</button><button id="tab-1" role="tab" aria-controls="panel-1" aria-selected="false" tabindex="-1">2 · 赛事研究</button><button id="tab-2" role="tab" aria-controls="panel-2" aria-selected="false" tabindex="-1">3 · 阵容 BP</button><button id="tab-3" role="tab" aria-controls="panel-3" aria-selected="false" tabindex="-1">4 · 一次训练</button><button id="tab-4" role="tab" aria-controls="panel-4" aria-selected="false" tabindex="-1">5 · 复盘迭代</button></nav><section class="chapter" id="panel-0" role="tabpanel" aria-labelledby="tab-0"><div class="eyebrow">STEP 01 / 先补协作证据</div><h2>问题一：刚组队，先练什么？</h2>
+<blockquote><strong>预写模拟对话。</strong>纸鸢队、队员和条件全部虚构；不是模型实时运行记录、实际训练结果或能力认证。</blockquote>
+<blockquote></blockquote>
+<blockquote>离线示例未接入当前官方数据，第三方讲解未审阅。</blockquote>
+<h3>完整输入提示词</h3>
+<pre><code>使用 $tarot-wangzhe-team-coach，帮虚构的纸鸢队安排起步磨合。
+
+我们有五人，暂定位置和自述英雄池如下，熟练度没有独立验证：
+- 山雀，对抗路：夏侯惇、廉颇、白起、项羽。
+- 松石，打野：赵云、兰陵王、刘备、阿轲。
+- 月白，中路：王昭君、张良、小乔、甄姬。
+- 赤陶，发育路：狄仁杰、孙尚香、伽罗、鲁班七号。
+- 青禾，游走：张飞、牛魔、孙膑、太乙真人。
+
+每周能练两晚，每晚90分钟，四周后想打一场练习赛。
+大家自述最常见的问题：青禾和山雀会同时下不一致的指令；
+资源争夺前，没有人逐个确认队友能否集合，后来容易互相埋怨。
+没有录像、语音或真实战绩可供核验。
+
+先给一个可以开始执行的分工，以及前两次训练的目标和四周推进顺序。
+不要先让我填一整张表，不要按英雄池或职业胜率给队员评级。
+当前版本和完整真实比赛规则没核实，阵容建议请写成待练方案。</code></pre>
+<h3>示例答复</h3>
+<p>先把“谁决定争或换、谁能到场”练清楚。纸鸢队现在最需要验证的是协作流程；仅凭这份自述，还不能判断具体是谁操作差、判断差或不愿配合。</p>
+<h4>起步分工</h4>
+<p>先沿用五人的自选位置，不在第一晚同时换位置、换英雄和换沟通方式。青禾暂任主指挥，负责集合、继续、转线或撤退这类全队决策；山雀负责对抗路局部信息，并在青禾明确说“交给山雀”或青禾确认无法继续指挥时接手。四周内可以根据记录调整，这个任命不代表两人的实力已经比较过。</p>
+<p>其余三人先承担清楚的信息职责：松石报告自己到场条件与可参与时机；月白报告线况和能否移动；赤陶报告当前安全与需要的保护。这里只要求说出自己真实看到或知道的信息，不要求每人持续播报全部地图。</p>
+<p>出现分歧时用一个收束流程：</p>
+<ul>
+<li>主指挥提出准备做的事，例如“准备河道集合，先报能不能到”。</li>
+<li>五人分别给“能到／稍晚／不能到”，补一句实际原因；没有回复仍视为未知，不能当作默认同意。</li>
+<li>主指挥根据已收到的信息给一个最终决定，例如“这次不争，转另一侧”，并说明决定已收束。</li>
+<li>情况改变可以提出新信息；副指挥提醒危险时，要让主指挥听到并重新收束，而不是两套互相排斥的口令同时持续。</li>
+</ul>
+<p>不要把“只能一个人拍板”变成禁止队员提醒或讨论。训练中要验证的是信息有没有进入最终决定，以及其他人是否知道最后执行哪一条。</p>
+<h4>前两晚先练两个动作</h4>
+<p><strong>第一晚：建立可重复的集合确认。</strong>开场10分钟约定主副指挥和简短用语；再花15分钟做桌面推演：一人来不及、一路兵线未处理、有人状态不支持参团，各演一遍。随后在可安排的自定义练习或练习对局中应用，留下少量时间点；最后讨论“决定前收到了谁的回答”。这晚不以赢几局验收，也不承诺固定时长能打完固定局数。</p>
+<p><strong>第二晚：练出现分歧后的收束。</strong>沿用第一晚较稳定的英雄和位置，主动演练两个人意见不同的情况。先复述双方看到的信息，再由主指挥宣布最终决定；记录有没有明确交接、有没有人不知道最后执行哪一条。若只是有人没听见，需要验证沟通渠道与说话时机，暂不解释为态度问题。</p>
+<p>这两晚不需要职业赛数据才能开始。没有录像时，可以由轮换观察者做简短事件笔记；笔记写“谁说了什么、谁回复了什么、哪些没记录”，不要写“某人没意识”代替证据。</p>
+<h4>四周推进顺序</h4>
+<div class="table-scroll"><table><thead><tr><th>周次</th><th>第一晚</th><th>第二晚</th><th>本周检查</th></tr></thead><tbody>
+<tr><td>第1周</td><td>建立主副指挥与集合确认</td><td>练分歧收束和明确移交</td><td>能否在行动前知道全员到场条件</td></tr>
+<tr><td>第2周</td><td>复练同一类资源集合场景</td><td>按实际记录修正到场和换资源决策</td><td>问题是否重复，还是只发生于一次特殊局面</td></tr>
+<tr><td>第3周</td><td>在熟悉英雄中试练第二套分工</td><td>练一个被禁或被抢后的替代方案</td><td>换英雄后是否仍能执行相同沟通流程</td></tr>
+<tr><td>第4周</td><td>按已提供的练习赛条件走一次准备</td><td>练习赛与复盘；时长超出则另约完成</td><td>下一轮留下两项可验证改进，不把输赢当唯一评价</td></tr>
+</tbody></table></div>
+<p>四周是准备窗口，不保证一定达到某个竞技水平。练习赛的完整规则和排期还需实际落实；当前可以先练的内容是分工、确认与收束。</p>
+<p>下一次可直接接着问：“基于这支虚构纸鸢队，研究少量离线赛事样本，哪些发现只适合当待训练假设？”见<a href="02-research.md">问题二</a>。</p></section><section class="chapter" id="panel-1" role="tabpanel" aria-labelledby="tab-1" hidden><div class="eyebrow">STEP 02 / 统计与解释分开</div><h2>问题二：这些赛事样本能支持什么结论？</h2>
+<blockquote><strong>预写模拟对话。</strong>以下四局、系列和赛果为合成演示数据，不对应真实选手、战队或官方赛事，也不是纸鸢队的实际战绩。</blockquote>
+<blockquote></blockquote>
+<blockquote>离线示例未接入当前官方数据，第三方讲解未审阅。</blockquote>
+<h3>完整输入提示词</h3>
+<pre><code>使用 $tarot-wangzhe-team-coach，继续帮助虚构纸鸢队。
+队伍主要问题仍是双指挥，以及集合前无人逐个确认到场条件。
+每周两晚90分钟，四周准备练习赛；不要凭研究结果认证队员实力。
+
+英雄池为：
+山雀：夏侯惇、廉颇、白起、项羽；
+松石：赵云、兰陵王、刘备、阿轲；
+月白：王昭君、张良、小乔、甄姬；
+赤陶：狄仁杰、孙尚香、伽罗、鲁班七号；
+青禾：张飞、牛魔、孙膑、太乙真人。
+
+我只给四局虚构的离线阵容样本。A、B、C、D各来自一个互相独立的
+虚构系列，每个系列只取一局，不能把它们当作同一BO3的跨局用人：
+A：夏侯惇／赵云／王昭君／狄仁杰／张飞，胜；
+B：廉颇／赵云／王昭君／孙尚香／牛魔，负；
+C：白起／刘备／小乔／伽罗／孙膑，胜；
+D：项羽／兰陵王／张良／鲁班七号／太乙真人，负。
+
+请分开写数据事实、不能得出的结论和可以试练的假设。
+特别解释赵云与王昭君共现两次、一胜一负意味着什么。
+没有看过第三方讲解就不要给博主背书，也不要编造职业案例或引用。
+当前版本、官方接口可用性和完整真实比赛规则都未核实。</code></pre>
+<h3>示例答复</h3>
+<p>这四局能帮助你提出研究问题，不能直接选出“版本答案”。先把它们当作四条合成阵容记录，而不是可代表职业赛或纸鸢队水平的样本。</p>
+<h4>数据实际写了什么</h4>
+<div class="table-scroll"><table><thead><tr><th>演示记录</th><th>独立虚构系列</th><th>打野＋中路</th><th>完整阵容中的其他三人</th><th>该记录赛果</th></tr></thead><tbody>
+<tr><td>A</td><td>系列A</td><td>赵云＋王昭君</td><td>夏侯惇、狄仁杰、张飞</td><td>胜</td></tr>
+<tr><td>B</td><td>系列B</td><td>赵云＋王昭君</td><td>廉颇、孙尚香、牛魔</td><td>负</td></tr>
+<tr><td>C</td><td>系列C</td><td>刘备＋小乔</td><td>白起、伽罗、孙膑</td><td>胜</td></tr>
+<tr><td>D</td><td>系列D</td><td>兰陵王＋张良</td><td>项羽、鲁班七号、太乙真人</td><td>负</td></tr>
+</tbody></table></div>
+<p>按这些输入计数，赵云出场两次，王昭君出场两次，两者同队共现两次；共现记录中一胜一负，描述性比例是1/2，即50%。其余两条记录没有这对组合。这里“50%”只描述这两条输入记录，不是组合的真实胜率、纸鸢队预测胜率或成功概率。</p>
+<p>A、B来自独立系列，所以重复选赵云、王昭君不构成同一系列全局不复用的违规；它们与之后为纸鸢队规划的三局BP是两套不同材料。</p>
+<h4>暂时不能推到哪里</h4>
+<p>两次共现既不足以证明组合稳定，也不足以证明组合不好。A、B的对抗路、射手和辅助都不同，材料没有交代对手、选边、版本、人员、比赛过程或沟通条件，无法把胜负归因于中野搭配。也没有录像证明任何一场实际完成了某种配合。</p>
+<p>这些数据没有禁用记录，不能补写禁用率；没有队员操作证据，不能给松石或月白熟练度评分；没有官方来源，不能写成“官方KPL数据显示”。第三方讲解未审阅，因此本轮也不能声称某位讲解者推荐了这套搭配。</p>
+<h4>对纸鸢队有用的待练假设</h4>
+<p><strong>假设：先固定一组双方都愿意试的中野，让集合确认流程稳定下来，可能比每次同时换阵容和口令更容易观察问题。</strong>赵云与王昭君出现在两条示例里，只说明可拿它们组织一个对照练习；选择它们还需要松石、月白确认确实能使用，并核对当时版本机制。不能用这两条样本替代熟练度与实战验证。</p>
+<p>试练时让青禾提出集合意图，松石和月白各自报告能否到场，再由青禾给继续或放弃的最终决定。记录执行链有没有走完；若没有，先定位是信息缺失、时间来不及、路线受阻，还是口令没收束。只有录像和其他记录支持时，才进一步分析具体技能衔接。</p>
+<p>若想研究组合本身，下一步应在相近训练目标与可比条件下增加记录，把版本、队友阵容、对手与实际执行写清楚；不把一次胜利或失败当成结论。也不能要求队员为了“保持实验条件”冒险执行已明显不合理的团战决定。</p>
+<h4>真正接入研究时的顺序</h4>
+<p>先确认赛事范围与统计截止，再获取带来源和抓取记录的数据；核对样本是否完整，以及每个指标的分母。查到讲解时，要确认原作者、日期、版本、可定位片段和论据，提炼成队伍能检验的动作。接口失败或原文不可读时保留缺口，继续完成不依赖这些材料的训练安排。</p>
+<p>本轮输出到这里为止：四条记录、一次组合共现描述和一个待练假设。没有新增真实赛事发现，也没有完成第三方讲解研究。下一步可以基于英雄池和明确给出的演示规则准备<a href="03-bp.md">条件BP计划</a>。</p></section><section class="chapter" id="panel-2" role="tabpanel" aria-labelledby="tab-2" hidden><div class="eyebrow">STEP 03 / 替代联动后续局</div><h2>问题三：三局BP怎么准备，被禁后怎么连着改？</h2>
+<blockquote><strong>预写模拟对话。</strong>队伍、英雄池与禁用情境全部虚构。以下是按已提供约束编写的条件计划，不是正式比赛合法性认证，也不是当前版本强度排名。</blockquote>
+<blockquote></blockquote>
+<blockquote>离线示例未接入当前官方数据，第三方讲解未审阅。</blockquote>
+<h3>完整输入提示词</h3>
+<pre><code>使用 $tarot-wangzhe-team-coach，给虚构纸鸢队做三局条件BP准备。
+
+位置／自述英雄池：
+山雀对抗：夏侯惇、廉颇、白起、项羽；
+松石打野：赵云、兰陵王、刘备、阿轲；
+月白中路：王昭君、张良、小乔、甄姬；
+赤陶发育：狄仁杰、孙尚香、伽罗、鲁班七号；
+青禾游走：张飞、牛魔、孙膑、太乙真人。
+
+演示规则只给三项：BO3；己方三局英雄全局不复用；同局不能重复英雄。
+此外需要检查我明确提供的禁用。主方案暂未提供禁用英雄；
+另准备一个分支：第一局张飞被禁，其他新增禁用暂未知。
+没有对手完整BP、正式主办方规则、选边与选取顺序。
+
+请按以下主方案整理人员职责、集合口令和检查结果：
+G1：夏侯惇／赵云／王昭君／狄仁杰／张飞；
+G2：廉颇／兰陵王／张良／孙尚香／牛魔；
+G3：白起／刘备／小乔／伽罗／孙膑。
+
+分支要求：G1张飞被禁后由牛魔替代，G2游走改太乙真人，G3仍用孙膑。
+不要只改第一局后就保留第二局牛魔导致跨局重复。
+说明你检查了什么、还有哪些规则或对手条件没法检查。
+主指挥暂为青禾，明确移交时山雀接手；重点仍是行动前逐人确认。</code></pre>
+<h3>示例答复</h3>
+<p>下面保留你给定的三套阵容，并把它们当作待练的分工载体。就目前输入而言，可以检查己方用人、位置覆盖、重复与已给禁用；完整真实规则尚未核实，不能称为正式合法阵容。</p>
+<h4>主方案</h4>
+<div class="table-scroll"><table><thead><tr><th>局次</th><th>山雀：对抗</th><th>松石：打野</th><th>月白：中路</th><th>赤陶：发育</th><th>青禾：游走</th></tr></thead><tbody>
+<tr><td>G1</td><td>夏侯惇</td><td>赵云</td><td>王昭君</td><td>狄仁杰</td><td>张飞</td></tr>
+<tr><td>G2</td><td>廉颇</td><td>兰陵王</td><td>张良</td><td>孙尚香</td><td>牛魔</td></tr>
+<tr><td>G3</td><td>白起</td><td>刘备</td><td>小乔</td><td>伽罗</td><td>孙膑</td></tr>
+</tbody></table></div>
+<p>这些选人都在对应队员的自述英雄池内，但没有材料证明他们在当前版本已经熟练掌握，也没有足够信息判断它们能否应对实际对手。</p>
+<p>三局先保持同一套沟通骨架。青禾负责把已收到的信息收束成团队决定；山雀报告自己能否参与以及局部危险；松石报告参与条件；月白报告能否移动和跟进；赤陶报告安全位置与保护需求。具体开团、输出或撤退方案仍要依据实际局面、版本机制与对手确定，不能仅看英雄名字就默认技能必然接上。</p>
+<div class="table-scroll"><table><thead><tr><th>局次</th><th>这局的训练关注点</th><th>一条可直接使用的口令</th></tr></thead><tbody>
+<tr><td>G1</td><td>用第一套熟悉组合观察到场确认是否完整</td><td>“先报能到、稍晚或不能到；信息齐了再决定。”</td></tr>
+<tr><td>G2</td><td>换中野与游走后，是否仍有同样的最终决定与回应</td><td>“这次由谁先做什么？其他人各说能否跟。”</td></tr>
+<tr><td>G3</td><td>继续换阵容时能否保留沟通习惯，而不是临时多人拍板</td><td>“当前执行哪一条？条件变了先报，再统一改。”</td></tr>
+</tbody></table></div>
+<p>口令是训练工具，不规定所有资源都必须争，也不要求五人无条件集合。条件不支持时，主指挥应给清楚的替代决定。</p>
+<h4>按已提供约束检查</h4>
+<p>主方案共15个英雄，己方三局没有复用；每局五名英雄互不重复；每位队员都有对应位置的一个选择，且都在给定池内。主输入没有列出禁用英雄，因此这里只能标为“未提供”，不能把空白解释成正式赛事没有禁用或五个英雄都一定能选到。</p>
+<p>如果某一局临场选择改变，下一局开始前要从实际已用英雄重新核算，不继续沿用这张原始表。胜负、阵容可用性和主办方是否允许重置，也必须按真实规则另行确认。</p>
+<h4>分支：第一局张飞被禁</h4>
+<p>牛魔先用在G1后，原G2牛魔就不能继续保留。把这条变化传递到后两局，得到：</p>
+<div class="table-scroll"><table><thead><tr><th>局次</th><th>对抗</th><th>打野</th><th>中路</th><th>发育</th><th>游走</th><th>相对主方案的变化</th></tr></thead><tbody>
+<tr><td>G1</td><td>夏侯惇</td><td>赵云</td><td>王昭君</td><td>狄仁杰</td><td>牛魔</td><td>张飞被禁，青禾改牛魔</td></tr>
+<tr><td>G2</td><td>廉颇</td><td>兰陵王</td><td>张良</td><td>孙尚香</td><td>太乙真人</td><td>原牛魔已在G1使用，改太乙真人</td></tr>
+<tr><td>G3</td><td>白起</td><td>刘备</td><td>小乔</td><td>伽罗</td><td>孙膑</td><td>暂不变</td></tr>
+</tbody></table></div>
+<p>按当前分支输入检查，G1没有选择已提供的禁用英雄张飞；三局游走分别为牛魔、太乙真人、孙膑，没有重复。其他12个位置不变，全分支仍为15个互不重复的己方英雄，各局也没有重复。</p>
+<p>这说明分支符合<strong>本例已提供的约束</strong>，没有证明正式合法或实际可选。太乙真人、牛魔若出现新的禁用或被对手抢选，当前表就需再次修改；不能把“没有收到新禁用”写成“已经确认可选”。</p>
+<h4>临场仍需核实的内容</h4>
+<p>正式使用前要取得实际主办方规则，包括选边、禁选顺序、对手选取约束、跨队同英雄限制、局间重置条件及任何特殊规则；并记录己方实际已用、已给禁用和对手已选。当前版本的角色适配、技能互动和队员熟练度也需实测。</p>
+<p>因此这次交付是主方案＋一个完整传播后的替代分支，以及明确范围的重复检查。接下来先练沟通和替代后的职责，不把四条离线研究样本当作这三套阵容的胜率依据。下一步见<a href="04-training.md">90分钟训练安排</a>。</p></section><section class="chapter" id="panel-3" role="tabpanel" aria-labelledby="tab-3" hidden><div class="eyebrow">STEP 04 / 在时长内可执行</div><h2>问题四：只有90分钟，怎么练，临时变动怎么办？</h2>
+<blockquote><strong>预写模拟对话。</strong>队伍、时间预算与安排全部虚构；以下是可调整的训练计划，不是已经执行的课表或实战成效。</blockquote>
+<blockquote></blockquote>
+<blockquote>离线示例未接入当前官方数据，第三方讲解未审阅。</blockquote>
+<h3>完整输入提示词</h3>
+<pre><code>使用 $tarot-wangzhe-team-coach，为虚构纸鸢队安排下一次训练。
+山雀对抗：夏侯惇、廉颇、白起、项羽；
+松石打野：赵云、兰陵王、刘备、阿轲；
+月白中路：王昭君、张良、小乔、甄姬；
+赤陶发育：狄仁杰、孙尚香、伽罗、鲁班七号；
+青禾游走：张飞、牛魔、孙膑、太乙真人。
+暂以G1夏侯惇／赵云／王昭君／狄仁杰／张飞为待练方案。
+没有完成当前版本适配核验，不要称这套阵容最优。
+
+每周两晚，每晚90分钟，四周准备一次练习赛。
+主要瓶颈是青禾和山雀同时下不一致的指令，以及行动前没有逐人确认。
+这次只练主副指挥收束和集合回应；不额外安排整套职业战术。
+
+请按0—10、10—25、25—65、65—82、82—90分钟安排，
+不要保证40分钟里能打完固定几局，不要要求中途退出正常匹配。
+再给缩到60分钟、以及临时缺1人的预案。
+验收用可观察动作，不只看胜负；没有录像或语音时保留证据限制。</code></pre>
+<h3>示例答复</h3>
+<p>这次只回答两件事：“行动前是否收齐到场条件”和“分歧后是否只剩一个明确的最终决定”。先维持熟悉的位置与待练阵容，减少同时改变的变量；不以两场连胜之类结果作为训练验收。</p>
+<h4>90分钟安排</h4>
+<div class="table-scroll"><table><thead><tr><th>相对时间</th><th>安排</th><th>具体产出与责任</th></tr></thead><tbody>
+<tr><td>0—10分钟</td><td>对齐今天目标、出勤和主副指挥</td><td>青禾复述集合确认流程；山雀复述接手条件；其余三人各说本晚有什么限制。指定一名轮换记录者，记录者同样参与练习，不承担完整逐秒记录</td></tr>
+<tr><td>10—25分钟</td><td>三个简短桌面情境或可控练习</td><td>依次练“一人稍晚”“一人不能到”“两人意见相反”。每次走完报条件、收束、回应；找出一句容易混淆的口令并改短</td></tr>
+<tr><td>25—65分钟</td><td>应用到可安排的自定义练习、练习赛片段或一段正常对局</td><td>记录少量关键集合事件：谁提出、五人回应是否齐、最后决定是什么。观察实际发生的事件，不为了凑次数强行接团</td></tr>
+<tr><td>65—82分钟</td><td>复盘两至三个最有信息的事件</td><td>先复述材料，再分开事实、自述和分析。每人补充自己当时看到的条件；没有记录的部分写未知，不靠多数人记忆判定某人动机</td></tr>
+<tr><td>82—90分钟</td><td>约定下一次继续验证的两件事</td><td>青禾确认最终用语与移交方式；记录者保存短笔记，队员核对有无误记；确定下次到场情况与是否需要补录像授权</td></tr>
+</tbody></table></div>
+<p>25—65分钟是40分钟的应用窗口，<strong>不保证能完成固定局数</strong>。开局前按可控时长选择练习形式；如果选了完整正常对局，就要预留可能超时的安排，不能为了卡表中途退出。若无法保证90分钟内结束，应改用可控片段、桌面推演或事先约好的练习，而不是把后半段复盘必然挤掉。</p>
+<p>每次应用只抓少量重要事件。记录者来不及记全时，标记缺失；不要写出并不存在的逐秒语音日志。</p>
+<h4>本次观察怎么记</h4>
+<p>一条事件笔记写四项即可：大致时间与来源、提出的意图、五人的到场回答、最终收束决定。比如“约第一个观察窗口，队员会后自述：月白说稍晚；是否其他四人已回应未记全”。这种笔记可支持继续追问，不能直接认定实际对局里所有人都听见了。</p>
+<p>如果有经同意保留的录像或语音，记录可定位片段以便复查；没有就明确保留自述性质。本轮不需要收集账号、学校或公司信息。</p>
+<h4>临时只有60分钟</h4>
+<p>保留相同目标，缩减应用范围和复盘事件数量，不把所有环节硬塞进更小窗口。</p>
+<div class="table-scroll"><table><thead><tr><th>相对时间</th><th>安排</th></tr></thead><tbody>
+<tr><td>0—7分钟</td><td>确认到场、限制、主副指挥与今天只练的两个动作</td></tr>
+<tr><td>7—17分钟</td><td>只演两个情境：有人不能到、两条口令冲突</td></tr>
+<tr><td>17—44分钟</td><td>一个可控应用窗口；不保证能打完一场完整对局，按实际可控程度选形式</td></tr>
+<tr><td>44—55分钟</td><td>只复盘两个关键事件，分别说明记录来源与未知项</td></tr>
+<tr><td>55—60分钟</td><td>留下下次的两项验证、确认出勤并保存短笔记</td></tr>
+</tbody></table></div>
+<p>不要为了60分钟安排临时降低正常对局的参与承诺。若完整比赛已经开始且超时，应正常完成，并将复盘改到双方确认的时间；以后调整练习形式。</p>
+<h4>临时缺一人</h4>
+<p>默认不拿四人执行结果评价“五人协作是否合格”，也不自动邀请未经确认的人来读队伍资料。先确定本晚能练什么：</p>
+<ul>
+<li>缺阵位置仍空着：用桌面情境或已授权的历史片段，四人分别报告条件，缺阵位置标“未知／未参加”，练主指挥怎样处理信息缺口。</li>
+<li>能合法安排四人参与的可控练习：只练现有人员的信息交换，不把临时位置代打效果混入五人训练指标。</li>
+<li>临时替补已由队伍确认：先说明任务、能用英雄与资料范围，重新确认职责；替补的数据单独标记，不与原五人样本直接合并。</li>
+</ul>
+<p>若缺的是青禾，由山雀在开场明确接手本晚主指挥，而不是到局中再默默改变；若山雀缺席，青禾先承担主指挥，不随意推定其他人已经接任副指挥。</p>
+<p>最后只保留两项可继续验证的观察：集合前五人的到场回答是否完整，以及同一决策窗口内的不一致口令是否得到明确收束。下一篇用三条虚构文字事件演示<a href="05-review.md">怎样复盘并设下一轮指标</a>。</p></section><section class="chapter" id="panel-4" role="tabpanel" aria-labelledby="tab-4" hidden><div class="eyebrow">STEP 05 / 把判断变成观察</div><h2>问题五：这次为什么乱，下一次验证什么？</h2>
+<blockquote><strong>预写模拟对话。</strong>以下三条带时间戳的事件和所有队员说法均为虚构文字材料；没有录像、游戏回放或语音记录。不是纸鸢队真实战绩，也不是模型实际看过录像后的结论。</blockquote>
+<blockquote></blockquote>
+<blockquote>离线示例未接入当前官方数据，第三方讲解未审阅。</blockquote>
+<h3>完整输入提示词</h3>
+<pre><code>使用 $tarot-wangzhe-team-coach，复盘虚构纸鸢队的三条文字事件。
+五人仍为山雀、松石、月白、赤陶、青禾；青禾暂任主指挥，
+山雀只在明确移交时接手。队伍每周两晚90分钟，四周准备练习赛。
+
+下面全部是事后整理的虚构文字笔记，时间戳也只是近似定位。
+没有录像、回放、语音或原始聊天截图，不要当成逐秒实录。
+
+06:10：笔记写“青禾说准备集合，山雀说先退，队伍随后分向两侧”。
+青禾自述：没有问齐所有人能不能到；山雀自述：当时认为人没齐。
+没人记下两条话的准确先后，也没有记录最终由谁收束。
+
+09:35：笔记写“月白报稍晚，之后仍有人先动，松石的到场回答未记”。
+月白自述：需要先处理自己的局面；松石自述：以为大家已经决定争。
+没有资料证明谁听见了哪一句，或月白晚到的确切时间。
+
+13:20：笔记写“青禾先问到场情况，五人轮流回答，随后决定放弃这次争夺”。
+赤陶自述：这次知道最终执行哪条口令；没有记录后续经济或胜负结果。
+
+请分别列可观察的材料事实、队员自述和分析假设，指出哪些未知会改变判断。
+不要直接断言有人不听指挥，不要用最后一次看起来更顺证明方案有效。
+下一轮只定两个验证指标，写清记录办法、分母与样本不足的局限。</code></pre>
+<h3>示例答复</h3>
+<p>目前最值得验证的是“条件没有收齐，最终决定也没有被明确收束”，还不能把问题归因于某个人不听指挥。三条材料只有事后文字笔记和自述，连准确先后都缺失；下面能确认的是材料写了什么，不是已经核实这些事在游戏中如何发生。</p>
+<h4>逐条拆开证据</h4>
+<div class="table-scroll"><table><thead><tr><th>近似时间</th><th>可观察的材料事实</th><th>队员自述</th><th>分析假设与不能越过的边界</th></tr></thead><tbody>
+<tr><td>06:10</td><td>这份笔记同时记录了“准备集合”和“先退”，并写队伍分向两侧；没有准确先后、到场回应表或最终收束记录</td><td>青禾说没有问齐；山雀说当时认为人没齐</td><td>可能是条件不一致没有被合并进同一个决定，也可能一条是对另一条的合理更新。没有时序与语音，不能断言山雀抢指挥、青禾判断错或谁故意不配合</td></tr>
+<tr><td>09:35</td><td>笔记记有月白“稍晚”，但没有松石到场回答；另写有人先动，没有给出可核验的行动细节</td><td>月白说需先处理自己的局面；松石说以为大家已决定争</td><td>可能有人把“准备”理解成“执行”，也可能后续口令没记下来。需要先查最终决定是什么、谁收到；不能直接认定有人听见了拒绝信息却仍强行开团</td></tr>
+<tr><td>13:20</td><td>笔记记录了问到场、五人轮流回应与放弃争夺；没有原始语音、后续经济或胜负</td><td>赤陶说知道最终口令</td><td>与“先确认再收束”的流程一致，可作为下一轮练习线索。只有一个自述案例，不能证明战术正确或沟通改动已经提高胜率</td></tr>
+</tbody></table></div>
+<p>“可观察的材料事实”这一列只证明公开示例中确实提供了这些文字。实际复盘若想升级为对局事实，应回到经同意提供的录像、语音或其他可定位记录；缺失时保留为自述与待核实事件。</p>
+<h4>先改流程，不先判人</h4>
+<p>下一轮把“准备集合”与“决定执行”分开使用：前者发起条件收集，后者必须由当时承担主指挥的人明确说出。队友可以提出危险和新的到场信息；出现“争／退”相反意见时，主指挥复述关键条件，再宣布这次执行哪一条。确实需要交给山雀时，明确说“移交山雀”，并让接手者确认。</p>
+<p>09:35中缺失的松石回应，不等于松石当时没说；更不等于他不愿配合。记录不全时先改善观察办法，并问当事人是否愿意补充，不把空白当成责备依据。</p>
+<p>也不把13:20的“放弃”自动判为更好的战术。它可能沟通更清楚，但放弃是否合理需要地图信息、状态、收益与后续过程，这些材料都没有。</p>
+<h4>下一轮只看两个指标</h4>
+<p>先约定“一个有效集合事件”：训练中有人明确提出一项需要多人参与的行动意图，实际出现了决定争、换资源或放弃的机会。不是每句“过来一下”都机械计数；观察者应给每条事件留下近似时间、来源与简短描述。记录不了的事件单独标为缺失，不偷偷从分母中删掉来提高比例。</p>
+<div class="table-scroll"><table><thead><tr><th>指标</th><th>记录与计算</th><th>下一轮的暂定检查点</th></tr></thead><tbody>
+<tr><td>集合条件确认完整率</td><td>分子：最终决定前，五人到场条件都有记录的有效集合事件数；分母：本轮观察到的有效集合事件总数。主指挥自己也要说明条件；“稍晚／不能到”同样是有效回答，不要求都答能到</td><td>先收集约5次自然发生的事件，检查是否至少4次记录完整。无法观察的回答标未知；不要为凑5次强行制造团战</td></tr>
+<tr><td>未收束的冲突口令数</td><td>每个有效集合事件内，若出现互相排斥的行动口令，且记录中没有当时主指挥的最终收束，记1次；同时报告有效事件总数及未知记录数。若证据不能判断先后，记“待核实”，不直接计成某人犯错</td><td>在同一批可观察事件中争取没有未收束冲突；若出现，选一个事件回看或重演，找缺失环节</td></tr>
+</tbody></table></div>
+<p>以上阈值只是本轮训练的起步检查点，不是已验证的竞技标准。没有自然发生的5次，就报告实际数量；记录缺失的事件不能判通过，只有两三次也不推算长期比例。发生了正常信息更新并得到收束，不应算作双指挥冲突。</p>
+<h4>这次结论能说到哪里</h4>
+<p>可以说：“三条虚构文字材料暴露出确认和收束记录不足，下一轮将用两个指标继续观察。”不能说：“已经证实山雀不听指挥”“流程使胜率提高”或“这套阵容有效”。</p>
+<p>下一轮保留相近训练目标与清楚的人员记录；如果换人、换主要分工或换练习形式，另外标注。样本依然会小，文字记录也会有遗漏，因此即使两个指标改善，仍需结合更多可定位材料判断能否稳定执行，以及是否真的帮助了比赛决策。</p></section>
+<section class="results"><h2>本次工具实际输出</h2><p>查看样本口径、条件方案校验和时长分配；约束通过不等于正式比赛合法。</p><div class="downloads"><a href="analysis.json">同队组合统计</a><a href="bp-check.json">BP 条件检查</a><a href="training-90.json">90 分钟分配</a><a href="training-60.json">60 分钟分配</a><a href="demo-report.md">完整 Markdown</a><a href="manifest.json">文件校验清单</a></div></section></main>
+<footer class="foot">维护与联系：<strong>puddingvoid</strong> · <a href="https://github.com/songliv66/tarot-wangzhe-team-coach">GitHub 源码与使用说明</a> · 文档、工具与合成示例：MIT。外部资料权利另行适用。</footer><script>
+const tabs=[...document.querySelectorAll('[role="tab"]')];
+function activate(i){tabs.forEach((t,n)=>{const yes=n===i;t.setAttribute('aria-selected',String(yes));t.tabIndex=yes?0:-1;document.getElementById(t.getAttribute('aria-controls')).hidden=!yes;});}
+tabs.forEach((tab,i)=>{tab.addEventListener('click',()=>activate(i));tab.addEventListener('keydown',e=>{let n=i;if(e.key==='ArrowRight')n=(i+1)%tabs.length;else if(e.key==='ArrowLeft')n=(i+tabs.length-1)%tabs.length;else if(e.key==='Home')n=0;else if(e.key==='End')n=tabs.length-1;else return;e.preventDefault();activate(n);tabs[n].focus();});});
+</script></body></html>

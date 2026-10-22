@@ -1,0 +1,65 @@
+{
+  "schema_version": 1,
+  "version": "2.1.0",
+  "dataset_kind": "synthetic",
+  "network_requests": 0,
+  "model_requests": 0,
+  "files": {
+    "01-start-team.md": {
+      "bytes": 5143,
+      "sha256": "2e3da046e42a332ec8e2ce87f77395068aba1afe20210e9faaff47d1339c743b"
+    },
+    "02-research.md": {
+      "bytes": 5136,
+      "sha256": "fd194e871308ce5dbdba3d933b8122368fdb49cf03d0f845b3f3d9ce4f0ae86d"
+    },
+    "03-bp.md": {
+      "bytes": 5743,
+      "sha256": "0603b519059720018f3c1166e809db0b3b99bb3e1e0ddef24c259ec44c18f02a"
+    },
+    "04-training.md": {
+      "bytes": 5915,
+      "sha256": "ad444d292069969f8343cb7c423e9d7f41e31666837bf1d0e9d115985d0a62ec"
+    },
+    "05-review.md": {
+      "bytes": 6738,
+      "sha256": "e0a89b1928dec47ed64baa6f10244aec0e19e182461c5b76312ca61c17cbff75"
+    },
+    "README.md": {
+      "bytes": 3474,
+      "sha256": "15ce41e40aa58c63cd8ca60482d9e2c7afd372b5bddb9a75dfc4459d3653ce17"
+    },
+    "analysis.json": {
+      "bytes": 7094,
+      "sha256": "8dab5cc973b55c6dfcdd8039b1010ad7e82092444d500ee2694f0af665944278"
+    },
+    "bp-check.json": {
+      "bytes": 778,
+      "sha256": "c24b09f6f0b50f2108b4b8111eef8c705bd3b3b7c8e09b541ced7794de07b097"
+    },
+    "demo-report.md": {
+      "bytes": 28798,
+      "sha256": "81e483fc36610abbf0b3fd3e743af6774c360645a378e3a5dc1616ac573c96b6"
+    },
+    "index.html": {
+      "bytes": 38683,
+      "sha256": "3b306218e2c55e4b363a37d84c3df2d2adc3c10d14b7fd5842eb8050b68506de"
+    },
+    "research-games.json": {
+      "bytes": 3486,
+      "sha256": "1e55cb6fe3304aa466593ad219f3fe4783f62cb2f2eda89b4e352c5eb8db004f"
+    },
+    "scenario.json": {
+      "bytes": 3473,
+      "sha256": "44093db0fc63056c99d7f6f8212e3a728602c69b97854c91ffef5c03b2c97e6c"
+    },
+    "training-60.json": {
+      "bytes": 1047,
+      "sha256": "0e66acff06b59f815db1e463bba8f77720df1575bf6e49eca62499e1c29bbfaa"
+    },
+    "training-90.json": {
+      "bytes": 1050,
+      "sha256": "1bd54c78218fca75ee4b58d36f01f6005959def075d2bc6abeab2c87c1ba97d2"
+    }
+  }
+}

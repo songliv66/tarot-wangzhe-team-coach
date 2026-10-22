@@ -1,0 +1,46 @@
+{
+  "schema_version": 1,
+  "total_minutes": 90,
+  "phases": [
+    {
+      "phase": 1,
+      "title": "目标与分工对齐",
+      "minutes": 10,
+      "start_minute": 0,
+      "end_minute": 10
+    },
+    {
+      "phase": 2,
+      "title": "关键片段暂停推演",
+      "minutes": 15,
+      "start_minute": 10,
+      "end_minute": 25
+    },
+    {
+      "phase": 3,
+      "title": "有界情景演练",
+      "minutes": 40,
+      "start_minute": 25,
+      "end_minute": 65
+    },
+    {
+      "phase": 4,
+      "title": "复盘一至两个关键点",
+      "minutes": 17,
+      "start_minute": 65,
+      "end_minute": 82
+    },
+    {
+      "phase": 5,
+      "title": "记录与下次任务",
+      "minutes": 8,
+      "start_minute": 82,
+      "end_minute": 90
+    }
+  ],
+  "limits": [
+    "This is a time budget, not a promise of a fixed number of live games.",
+    "For a hard stop, use replay or bounded scenarios; match duration is not controllable.",
+    "Choose one or two observable training targets from the team's actual evidence."
+  ]
+}

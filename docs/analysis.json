@@ -1,0 +1,409 @@
+{
+  "schema_version": 1,
+  "dataset_kind": "synthetic",
+  "notice": "SYNTHETIC: invented records, not real matches or official evidence.",
+  "team_filter": "纸鸢队",
+  "games_in_dataset": 4,
+  "lineups_in_dataset": 8,
+  "selected_games": 4,
+  "team_observations": 4,
+  "wins": 2,
+  "losses": 2,
+  "pairs": [
+    {
+      "heroes": [
+        "王昭君",
+        "赵云"
+      ],
+      "appearances": 2,
+      "wins": 1,
+      "losses": 1,
+      "sample_win_rate": 0.5
+    },
+    {
+      "heroes": [
+        "伽罗",
+        "刘备"
+      ],
+      "appearances": 1,
+      "wins": 1,
+      "losses": 0,
+      "sample_win_rate": 1.0
+    },
+    {
+      "heroes": [
+        "伽罗",
+        "孙膑"
+      ],
+      "appearances": 1,
+      "wins": 1,
+      "losses": 0,
+      "sample_win_rate": 1.0
+    },
+    {
+      "heroes": [
+        "伽罗",
+        "小乔"
+      ],
+      "appearances": 1,
+      "wins": 1,
+      "losses": 0,
+      "sample_win_rate": 1.0
+    },
+    {
+      "heroes": [
+        "伽罗",
+        "白起"
+      ],
+      "appearances": 1,
+      "wins": 1,
+      "losses": 0,
+      "sample_win_rate": 1.0
+    },
+    {
+      "heroes": [
+        "兰陵王",
+        "太乙真人"
+      ],
+      "appearances": 1,
+      "wins": 0,
+      "losses": 1,
+      "sample_win_rate": 0.0
+    },
+    {
+      "heroes": [
+        "兰陵王",
+        "张良"
+      ],
+      "appearances": 1,
+      "wins": 0,
+      "losses": 1,
+      "sample_win_rate": 0.0
+    },
+    {
+      "heroes": [
+        "兰陵王",
+        "项羽"
+      ],
+      "appearances": 1,
+      "wins": 0,
+      "losses": 1,
+      "sample_win_rate": 0.0
+    },
+    {
+      "heroes": [
+        "兰陵王",
+        "鲁班七号"
+      ],
+      "appearances": 1,
+      "wins": 0,
+      "losses": 1,
+      "sample_win_rate": 0.0
+    },
+    {
+      "heroes": [
+        "刘备",
+        "孙膑"
+      ],
+      "appearances": 1,
+      "wins": 1,
+      "losses": 0,
+      "sample_win_rate": 1.0
+    },
+    {
+      "heroes": [
+        "刘备",
+        "小乔"
+      ],
+      "appearances": 1,
+      "wins": 1,
+      "losses": 0,
+      "sample_win_rate": 1.0
+    },
+    {
+      "heroes": [
+        "刘备",
+        "白起"
+      ],
+      "appearances": 1,
+      "wins": 1,
+      "losses": 0,
+      "sample_win_rate": 1.0
+    },
+    {
+      "heroes": [
+        "夏侯惇",
+        "张飞"
+      ],
+      "appearances": 1,
+      "wins": 1,
+      "losses": 0,
+      "sample_win_rate": 1.0
+    },
+    {
+      "heroes": [
+        "夏侯惇",
+        "狄仁杰"
+      ],
+      "appearances": 1,
+      "wins": 1,
+      "losses": 0,
+      "sample_win_rate": 1.0
+    },
+    {
+      "heroes": [
+        "夏侯惇",
+        "王昭君"
+      ],
+      "appearances": 1,
+      "wins": 1,
+      "losses": 0,
+      "sample_win_rate": 1.0
+    },
+    {
+      "heroes": [
+        "夏侯惇",
+        "赵云"
+      ],
+      "appearances": 1,
+      "wins": 1,
+      "losses": 0,
+      "sample_win_rate": 1.0
+    },
+    {
+      "heroes": [
+        "太乙真人",
+        "张良"
+      ],
+      "appearances": 1,
+      "wins": 0,
+      "losses": 1,
+      "sample_win_rate": 0.0
+    },
+    {
+      "heroes": [
+        "太乙真人",
+        "项羽"
+      ],
+      "appearances": 1,
+      "wins": 0,
+      "losses": 1,
+      "sample_win_rate": 0.0
+    },
+    {
+      "heroes": [
+        "太乙真人",
+        "鲁班七号"
+      ],
+      "appearances": 1,
+      "wins": 0,
+      "losses": 1,
+      "sample_win_rate": 0.0
+    },
+    {
+      "heroes": [
+        "孙尚香",
+        "廉颇"
+      ],
+      "appearances": 1,
+      "wins": 0,
+      "losses": 1,
+      "sample_win_rate": 0.0
+    },
+    {
+      "heroes": [
+        "孙尚香",
+        "牛魔"
+      ],
+      "appearances": 1,
+      "wins": 0,
+      "losses": 1,
+      "sample_win_rate": 0.0
+    },
+    {
+      "heroes": [
+        "孙尚香",
+        "王昭君"
+      ],
+      "appearances": 1,
+      "wins": 0,
+      "losses": 1,
+      "sample_win_rate": 0.0
+    },
+    {
+      "heroes": [
+        "孙尚香",
+        "赵云"
+      ],
+      "appearances": 1,
+      "wins": 0,
+      "losses": 1,
+      "sample_win_rate": 0.0
+    },
+    {
+      "heroes": [
+        "孙膑",
+        "小乔"
+      ],
+      "appearances": 1,
+      "wins": 1,
+      "losses": 0,
+      "sample_win_rate": 1.0
+    },
+    {
+      "heroes": [
+        "孙膑",
+        "白起"
+      ],
+      "appearances": 1,
+      "wins": 1,
+      "losses": 0,
+      "sample_win_rate": 1.0
+    },
+    {
+      "heroes": [
+        "小乔",
+        "白起"
+      ],
+      "appearances": 1,
+      "wins": 1,
+      "losses": 0,
+      "sample_win_rate": 1.0
+    },
+    {
+      "heroes": [
+        "廉颇",
+        "牛魔"
+      ],
+      "appearances": 1,
+      "wins": 0,
+      "losses": 1,
+      "sample_win_rate": 0.0
+    },
+    {
+      "heroes": [
+        "廉颇",
+        "王昭君"
+      ],
+      "appearances": 1,
+      "wins": 0,
+      "losses": 1,
+      "sample_win_rate": 0.0
+    },
+    {
+      "heroes": [
+        "廉颇",
+        "赵云"
+      ],
+      "appearances": 1,
+      "wins": 0,
+      "losses": 1,
+      "sample_win_rate": 0.0
+    },
+    {
+      "heroes": [
+        "张良",
+        "项羽"
+      ],
+      "appearances": 1,
+      "wins": 0,
+      "losses": 1,
+      "sample_win_rate": 0.0
+    },
+    {
+      "heroes": [
+        "张良",
+        "鲁班七号"
+      ],
+      "appearances": 1,
+      "wins": 0,
+      "losses": 1,
+      "sample_win_rate": 0.0
+    },
+    {
+      "heroes": [
+        "张飞",
+        "狄仁杰"
+      ],
+      "appearances": 1,
+      "wins": 1,
+      "losses": 0,
+      "sample_win_rate": 1.0
+    },
+    {
+      "heroes": [
+        "张飞",
+        "王昭君"
+      ],
+      "appearances": 1,
+      "wins": 1,
+      "losses": 0,
+      "sample_win_rate": 1.0
+    },
+    {
+      "heroes": [
+        "张飞",
+        "赵云"
+      ],
+      "appearances": 1,
+      "wins": 1,
+      "losses": 0,
+      "sample_win_rate": 1.0
+    },
+    {
+      "heroes": [
+        "牛魔",
+        "王昭君"
+      ],
+      "appearances": 1,
+      "wins": 0,
+      "losses": 1,
+      "sample_win_rate": 0.0
+    },
+    {
+      "heroes": [
+        "牛魔",
+        "赵云"
+      ],
+      "appearances": 1,
+      "wins": 0,
+      "losses": 1,
+      "sample_win_rate": 0.0
+    },
+    {
+      "heroes": [
+        "狄仁杰",
+        "王昭君"
+      ],
+      "appearances": 1,
+      "wins": 1,
+      "losses": 0,
+      "sample_win_rate": 1.0
+    },
+    {
+      "heroes": [
+        "狄仁杰",
+        "赵云"
+      ],
+      "appearances": 1,
+      "wins": 1,
+      "losses": 0,
+      "sample_win_rate": 1.0
+    },
+    {
+      "heroes": [
+        "项羽",
+        "鲁班七号"
+      ],
+      "appearances": 1,
+      "wins": 0,
+      "losses": 1,
+      "sample_win_rate": 0.0
+    }
+  ],
+  "limits": [
+    "Counts use one team-side per game; bans and opponents are not teammates.",
+    "Co-occurrence and sample wins do not establish causation or hero strength.",
+    "No current version, professional relevance, or amateur win rate is certified."
+  ]
+}

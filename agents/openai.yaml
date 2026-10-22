@@ -1,0 +1,4 @@
+interface:
+  display_name: "塔罗王者赛训"
+  short_description: "按队伍实际情况完成建队诊断、赛事研究、阵容 BP、训练与复盘，并给出可验证的下一步。"
+  default_prompt: "使用 $tarot-wangzhe-team-coach，根据我们的队伍情况解决当前最重要的协作问题，并安排一次可验证的训练。"

@@ -1,0 +1,26 @@
+{
+  "schema_version": 1,
+  "dataset_kind": "synthetic",
+  "notice": "SYNTHETIC: invented records, not real matches or official evidence.",
+  "team": "纸鸢队",
+  "checks_passed": true,
+  "status": "conditional_candidates",
+  "formal_match_legality": "not_certified",
+  "plans": [
+    {
+      "name": "main",
+      "games_checked": 3,
+      "distinct_own_heroes": 15
+    },
+    {
+      "name": "zhang-fei-banned",
+      "games_checked": 3,
+      "distinct_own_heroes": 15
+    }
+  ],
+  "limits": [
+    "Only supplied pools, roles, picks, bans, and stated reuse rules were checked.",
+    "Future bans/picks, full organizer rules, version, and player proficiency remain unverified.",
+    "Each branch is a separate possible future, not additional games in the same series."
+  ]
+}
